@@ -1,0 +1,94 @@
+create table aluno (
+  PNome VARCHAR(15) not NULL,
+  UNome VARCHAR(30) NOT NULL,
+  nota DECIMAL NOT NULL
+  );
+  
+drop table professor
+
+create table professor (
+  PNome_prof VARCHAR(15) not NULL,
+  UNome_prof VARCHAR(30) NOT NULL,
+  disciplina VARCHAR(15) NOT NULL
+  );
+  
+insert into aluno (pnome, unome, nota) VALUES
+  ('Breno', 'Celestino', 7.2),
+  ('Juan', 'Tanan', 9.0),
+  ('Fagner', 'Amado', 8.5),
+  ('Yan', 'Daniel', 7.9)
+  
+insert into professor (pnome_prof, unome_prof, disciplina) VALUES
+  ('Jorder', 'Rafael', 'Robotica'),
+  ('Thalita', 'Ferreira', 'Programação C++'),
+  ('Icaro', 'Araujo', 'PHP'),
+  ('Fernando', 'Mauricio', 'Inovação e Emp.')
+  
+// 1. Alunos Aprovados (nota > 7,0):aluno
+SELECT *
+FROM aluno
+WHERE nota > 7.0;
+
+// Alterando e atualizando tabela para realizar busca 2
+
+ALTER TABLE aluno
+ADD ano INT;
+
+UPDATE aluno
+SET ano = 1
+WHERE ano IS NULL;
+
+UPDATE aluno
+SET ano = 1
+WHERE PNome IN ('Breno', 'Juan', 'Fagner', 'Yan');
+
+// 2. Consulta para Selecionar Alunos do Primeiro Ano com Nota >= 8,0:
+
+SELECT *
+FROM aluno
+WHERE ano = 1 AND nota >= 8.0;
+
+// 3. Consulta para Selecionar Nomes e Notas dos Alunos:
+
+SELECT PNome, UNome, nota
+FROM aluno;
+
+// 4. Consulta para Criar a Tabela PROFESSOR com Primeiro e Último Nome:
+
+SELECT PNome_prof AS PrimeiroNome, UNome_prof AS UltimoNome
+FROM professor;
+
+// 5. Consulta para Criar a Tabela ALUNO com Primeiro e Último Nome:
+
+SELECT PNome AS PrimeiroNome, UNome AS UltimoNome
+FROM aluno;
+
+// 6. Resultado da União entre ALUNO e PROFESSOR:
+
+SELECT PNome AS PrimeiroNome, UNome AS UltimoNome
+FROM aluno
+
+UNION
+
+SELECT PNome_prof AS PrimeiroNome, UNome_prof AS UltimoNome
+FROM professor;
+
+// 7. Resultado da Intersecção entre ALUNO e PROFESSOR:
+
+SELECT PNome AS PrimeiroNome, UNome AS UltimoNome
+FROM aluno
+
+INTERSECT
+
+SELECT PNome_prof AS PrimeiroNome, UNome_prof AS UltimoNome
+FROM professor;
+
+// 8. Resultado da Diferença entre ALUNO e PROFESSOR:
+
+SELECT PNome AS PrimeiroNome, UNome AS UltimoNome
+FROM aluno
+
+EXCEPT
+
+SELECT PNome_prof AS PrimeiroNome, UNome_prof AS UltimoNome
+FROM professor;
