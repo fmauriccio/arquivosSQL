@@ -1,0 +1,47 @@
+CREATE table cliente (
+  id serial primary key,
+  nome VARCHAR(16) not NULL,
+  sobrenome VARCHAR(24) not null,
+  idade int,
+  pais VARCHAR(4)
+  );
+  
+CREATE table pedido (
+  id SERIAL,
+  item VARCHAR(48) not NULL,
+  quantidade INT not NULL,
+  fk_id_cliente INT NOT NULL,
+  CONSTRAINT fk_cliente FOREIGN KEY(fk_id_cliente) REFERENCES cliente(ID)
+);
+
+insert into cliente(nome, sobrenome, idade, pais) VALUES
+  ('Fernando', 'Mauricio', 27, 'BR'),
+  ('Caleb', 'Brito', 18, 'EUA'),
+  ('Clícia', 'Souza', 31, 'MX'),
+  ('Elis', 'Brito', 17, 'CAN'),
+  ('Néfi', 'Sam', 30, 'ISR')
+  
+insert into pedido(item, quantidade, fk_id_cliente) VALUES
+  ('teclado', 1, 4),
+  ('mouse', 2, 4),
+  ('monitor', 8, 3),
+  ('teclado', 1, 1),
+  ('mousepad', 4, 2)
+  
+SELECT * from pedido
+  INNER JOIN cliente
+  on pedido.fk_id_cliente = cliente.id
+  
+select * from pedido
+  RIGHT join cliente
+  on pedido.fk_id_cliente = cliente.id
+  
+select * from pedido
+  RIGHT join cliente
+  on pedido.fk_id_cliente = cliente.id
+  where pedido.id ISNULL
+  
+select pedido.id AS numero_pedido, cliente.id AS numero_cliente
+  from pedido
+  join cliente
+  on pedido.fk_id_cliente = cliente.id
